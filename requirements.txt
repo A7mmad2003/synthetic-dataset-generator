@@ -1,0 +1,56 @@
+# ==============================================================================
+# requirements.txt — Synthetic Dataset Generator
+# ==============================================================================
+# All packages are pinned to stable, mutually-compatible versions tested with
+# Python 3.10 and 3.11.
+#
+# Install:
+#   pip install -r requirements.txt
+#
+# Upgrade a single package (carefully — SDV/SDMetrics API can change):
+#   pip install --upgrade sdv
+# ==============================================================================
+
+# ── Web framework ──────────────────────────────────────────────────────────────
+streamlit==1.35.0          # Single-file web app framework; 1.35.x is LTS-stable
+
+# ── Synthetic data generation (SDV ecosystem) ─────────────────────────────────
+sdv==1.12.1                # Synthetic Data Vault — CTGANSynthesizer, TVAESynthesizer,
+                           # GaussianCopulaSynthesizer, SingleTableMetadata
+                           # NOTE: 1.11.0 has an irreconcilable conflict between its own
+                           # copulas<0.10 and sdmetrics>=0.13 (which needs copulas>=0.10).
+                           # 1.12.1 is the first release that unified both ranges.
+sdmetrics==0.14.1          # Quality evaluation metrics (QualityReport, etc.)
+                           # Must be kept in sync with sdv — check SDV release notes
+                           # when upgrading either package.
+                           # sdv>=1.12.1 requires sdmetrics>=0.14.0
+
+# ── Deep learning backend (required by CTGAN and TVAE) ────────────────────────
+torch==2.3.0               # PyTorch CPU build; SDV's deep learning synthesizers
+                           # (CTGAN, TVAE) use PyTorch under the hood.
+                           # For GPU support, replace with the CUDA-enabled wheel:
+                           #   pip install torch==2.3.0+cu121 --extra-index-url https://download.pytorch.org/whl/cu121
+
+# ── Data manipulation ──────────────────────────────────────────────────────────
+pandas==2.2.2              # Core DataFrame library; 2.x has improved dtype handling
+numpy==1.26.4              # Numerical arrays; SDV and pandas both pin to 1.x range
+                           # (numpy 2.x may break some SDV internals — stay on 1.26.x)
+
+# ── Visualisation ──────────────────────────────────────────────────────────────
+plotly==5.22.0             # Interactive charts (histograms, bar charts, gauge)
+                           # Used for distribution comparison and score gauge.
+
+# ── SDV transitive dependencies (pinned for reproducibility) ──────────────────
+# These are pulled in by SDV automatically, but pinning them prevents accidental
+# upgrades that could silently break the SDV/SDMetrics API contract.
+scikit-learn==1.5.0        # Used by GaussianCopula and SDMetrics internally
+scipy==1.13.1              # Statistical functions used throughout SDV
+copulas==0.11.1            # Copula models — direct SDV dependency
+                           # sdv>=1.12.1 requires copulas>=0.11.0
+rdt==1.12.4                # Reversible Data Transforms — SDV's preprocessing layer
+                           # sdv>=1.12.1 requires rdt>=1.12.0
+ctgan==0.10.2              # Low-level CTGAN/TVAE implementation (called by SDV)
+                           # sdv>=1.12.1 requires ctgan>=0.10.0
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+tqdm==4.66.4               # Progress bars used by SDV during model training
