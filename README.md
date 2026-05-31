@@ -32,13 +32,7 @@ GaussianCopula is not a deep learning model — it fits a multivariate Gaussian 
 
 ## Demo
 
-### Screenshot
-
-> **[Demo screenshot here]**
-
-### Video walkthrough
-
-<video src="assets/demo.mp4" width="100%" controls></video>
+![Walkthrough](assets/demo.mp4)
 
 ---
 
