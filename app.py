@@ -1070,7 +1070,6 @@ def _render_column_bar_chart(col_breakdown: pd.DataFrame) -> None:
     with st.expander("📊 Full column breakdown table", expanded=False):
         st.dataframe(
             col_breakdown.style
-            .background_gradient(cmap="RdYlGn", subset=["Quality Score"], vmin=0, vmax=1)
             .format({"Quality Score": "{:.1%}"}),
             use_container_width=True,
         )
