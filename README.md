@@ -77,7 +77,7 @@ synthetic-dataset-generator/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/synthetic-dataset-generator.git
+git clone https://github.com/A7mmad2003/synthetic-dataset-generator.git
 cd synthetic-dataset-generator
 
 # 2. Create and activate a virtual environment (strongly recommended)

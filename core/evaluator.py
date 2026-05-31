@@ -362,6 +362,8 @@ def _extract_column_breakdown(report: QualityReport) -> pd.DataFrame:
             return pd.DataFrame(columns=["Column", "Metric", "Quality Score"])
 
         details_df = details_df.rename(columns=str.strip)
+        if "Score" in details_df.columns:
+            details_df = details_df.rename(columns={"Score": "Quality Score"})
         details_df["Quality Score"] = details_df["Quality Score"].apply(_safe_float)
         details_df = details_df.sort_values("Quality Score", ascending=True)
         details_df = details_df.reset_index(drop=True)
